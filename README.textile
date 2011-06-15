@@ -1,0 +1,13 @@
+h1. About Unite
+
+Unite is an open source link extraction and network analysis platform that I started to build as part of my Labs SAPO/UP research grant and that I will be maintaining here.
+
+h1. Quick Start
+
+In order to use the command line interface (CLI), you'll need to install Java 1.6 (http://www.oracle.com/technetwork/java/javase/downloads/jre-6u25-download-346243.html) and Apache Maven 2 (http://maven.apache.org/), and then run:
+
+> mvn assembly:assembly
+
+in the same directory as pom.xml to build the JAR package.
+
+Check the documentation for Unite in http://labs.sapo.pt/~projects/Unite/wiki/Documentation and use the ./unite.sh to call the CLI.

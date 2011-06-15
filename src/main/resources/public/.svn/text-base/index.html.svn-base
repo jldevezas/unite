@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>[Unite] Blog communities</title>
+
+		<link rel="stylesheet" href="css/unite.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="css/force.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+		<link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/css" media="all" />
+
+		<script src="javascript/d3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="javascript/d3.geom.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="javascript/d3.layout.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="javascript/unite.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script> 
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js" type="text/javascript"></script> 
+		<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script> 
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$( "#community-render-confirm" ).hide();
+
+				var form = getUrlVars();
+
+				if ( form["domain"] != undefined ) {
+					$.getJSON( "http://nadir.fe.up.pt:8182/SAPOBlogGraph/indices/vertices",
+						{ key:"url", value:form["domain"] },
+						function( json ) {
+							if ( json.results.length > 0 ) {
+								var blogInfo = json.results[0];
+
+								$("#domain").html(
+									"<a href='http://" + blogInfo.url + "'>" + blogInfo.url + "</a>" );
+								$("#eigenvector-centrality").text( blogInfo.eigenvectorCentrality );
+								$("#in-degree").text( blogInfo.indegree );
+								$("#out-degree").text( blogInfo.outdegree );
+
+								if ( blogInfo.labels != undefined ) {
+									var html = [];
+									for ( var i=0 ; i < blogInfo.labels.length ; i++ ) {
+										html.push( "<a href='" + "http://nadir.fe.up.pt/~unite/?domain=" +
+											form[ "domain" ] + "&label=" + blogInfo.labels[ i ] +
+											"'>" + blogInfo.labels[ i ] + "</a>" );
+									}
+									$("#labels").html( html.join(", ") );
+								}
+
+								if ( blogInfo.communities != undefined ) {
+									var html = [];
+									for ( var i=0 ; i < blogInfo.communities.length ; i++ ) {
+										html.push( "<a href='" + "http://nadir.fe.up.pt/~unite/?domain=" +
+											form[ "domain" ] + "&community=" + blogInfo.communities[ i ] +
+											"'>" + blogInfo.communities[ i ] + "</a>" );
+									}
+									$("#community-ids").html( html.join( ", " ) );
+
+									var communityVis = new CommunityVisualization(
+										blogInfo.communities, "#community-visualization" );
+									communityVis.display();
+								}
+							}
+						});
+				}
+
+				if ( form[ "community" ] != undefined ) {
+					$.getJSON( "http://nadir.fe.up.pt:8182/SAPOBlogGraph/indices/vertices",
+						{ key: "communities", value: form[ "community" ] },
+						function( json ) {
+							if ( json.results.length > 0 ) {
+								var communityBlogList = json.results;
+
+								$( "#blog-community-container" ).append(
+									"<strong>Blogs in community " + form[ "community" ] + "</strong>" );
+
+								for ( var i = 0 ; i < communityBlogList.length ; i++ ) {
+									var name = communityBlogList[ i ].url;
+
+									var overlap = 0;
+									var communities = communityBlogList[ i ].communities;
+									if ( communities ) overlap = communities.length;
+
+									var anchor = $( "<a>" ).text( name )
+										.attr( "href", "http://nadir.fe.up.pt/~unite/?domain=" +
+											name + "&community=" + form[ "community" ] )
+										.attr( "title", "Overlap of " + overlap );
+									var blog = $( "<p>" ).append( anchor );
+
+									if ( overlap > 1 ) blog.css( "font-weight", "bold" );
+
+									$( "#blog-community-container" ).append( blog );
+								}
+							}
+						});
+				}
+
+				if ( form[ "label" ] != undefined ) {
+					$.getJSON( "http://nadir.fe.up.pt:8182/SAPOBlogGraph/indices/vertices",
+						{ key: "labels", value: form[ "label" ] },
+						function( json ) {
+							if ( json.results.length > 0 ) {
+								var labelBlogList = json.results;
+
+								$( "#blog-label-container" ).append(
+									"<strong>Blogs labeled '" + form[ "label" ] + "'</strong>" );
+
+								for ( var i=0 ; i < labelBlogList.length ; i++ ) {
+									var name = labelBlogList[ i ].url;
+									$( "#blog-label-container" ).append(
+										"<p><a href='http://nadir.fe.up.pt/~unite/?domain=" + name +
+										"&community=" + form[ "community" ] + "'>" + name + "</a></p>" );
+								}
+							}
+						});
+				}
+			});
+		</script>
+	</head>
+
+	<body>
+		<script>
+			var blogInfo = new BlogInfo();
+
+			$(function() {
+				$("#blog-search-box").autocomplete({
+					minLength:2,
+					source:blogInfo.searchByDomain
+				});
+			});
+		</script>
+
+		<div id="main-container">
+			<div id="blog-search-container">
+				<form>
+					<label>Domínio <input id="blog-search-box" name="domain"></label>
+					<button>Obter Informação</button>
+				</form>
+			</div>
+
+			<div id="blog-info-container">
+				<table>
+					<tr>
+						<th>Blog</th>
+						<td id="domain">N/A</td>
+					</tr>
+					<tr>
+						<th>Eigenvector centrality</th>
+						<td id="eigenvector-centrality">N/A</td>
+					</tr>
+					<tr>
+						<th>In-degree</th>
+						<td id="in-degree">N/A</td>
+					</tr>
+					<tr>
+						<th>Out-degree</th>
+						<td id="out-degree">N/A</td>
+					</tr>
+					<tr>
+						<th>Tags</th>
+						<td id="labels">N/A</td>
+					</tr>
+					<tr>
+						<th>Community IDs</th>
+						<td id="community-ids">N/A</td>
+					</tr>
+				</table>
+			</div>
+
+			<div id="community-visualization-container">
+				<div id="community-render-confirm" title="Render community?">
+					<p>
+						<span class="ui-icon ui-icon-alert"
+							style="float:left; margin:0 7px 20px 0;"></span>
+						Too many nodes to render. Continue anyway?
+					</p>
+				</div>
+				
+				<div id="community-visualization"></div>
+			</div>
+
+			<div id="blog-community-container"></div>
+			<div id="blog-label-container"></div>
+		</div>
+	</body>
+</html>

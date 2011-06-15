@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Unite/!svn/ver/45/trunk/src/main/java/pt/up/fe/unite/similarity/writer
+END
+Neo4jSimilarityGraphWriter.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/Unite/!svn/ver/45/trunk/src/main/java/pt/up/fe/unite/similarity/writer/Neo4jSimilarityGraphWriter.java
+END
+SimilarityGraphWriter.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/Unite/!svn/ver/45/trunk/src/main/java/pt/up/fe/unite/similarity/writer/SimilarityGraphWriter.java
+END
