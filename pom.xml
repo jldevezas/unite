@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>pt.up.fe.unite</groupId>
+	<groupId>com.josedevezas.unite</groupId>
 	<artifactId>unite</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
@@ -352,7 +352,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>pt.up.fe.unite.App</mainClass>
+							<mainClass>com.josedevezas.unite.App</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -363,7 +363,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2</version>
 				<configuration>
-					<mainClass>pt.up.fe.unite.App</mainClass>
+					<mainClass>com.josedevezas.unite.App</mainClass>
 				</configuration>
 			</plugin>
 
