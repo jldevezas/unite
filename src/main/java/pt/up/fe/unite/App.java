@@ -47,10 +47,7 @@ import org.apache.log4j.ConsoleAppender;
 import joptsimple.OptionSet;
 
 /**
- * This is the main class, that will run the application.
- *
- * This class is used for our internal tests, but can be
- * used for your own applications, if desired.
+ * This is the main class, that will call the CLI.
  *
  * @author José Devezas (jld@fe.up.pt)
  * @version 2011.0210

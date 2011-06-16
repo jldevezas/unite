@@ -74,7 +74,6 @@ public class GraphBuilder implements Trackable
 			long notificationInterval,
 			TimeUnit notificationTimeUnit )
 	{
-		// TODO maybe we should send the reader, parser and writer in the constructor.
 		this.log = Logger.getLogger( this.getClass().getName() );
 		this.resultQueue = new LinkedBlockingQueue<Pair<String,String>>( resultsQueueCapacity );
 		this.threadsPerProcessor = threadsPerProcessor;
