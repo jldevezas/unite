@@ -1,6 +1,6 @@
-package pt.up.fe.unite.mining.properties
+package com.josedevezas.unite.mining.properties
 
-import pt.up.fe.unite.mining.properties.PropertyBuilder
+import com.josedevezas.unite.mining.properties.PropertyBuilder
 
 import java.util.Map
 import java.util.Properties

@@ -1,4 +1,4 @@
-package pt.up.fe.unite.mining.stats
+package com.josedevezas.unite.mining.stats
 
 import com.tinkerpop.gremlin.Gremlin
 import com.tinkerpop.blueprints.pgm.impls.neo4j.Neo4jGraph
