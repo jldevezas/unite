@@ -5,7 +5,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pt.up.fe.unite</groupId>
-	<artifactId>Unite</artifactId>
+	<artifactId>unite</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
 
@@ -143,6 +143,12 @@
 			<version>0.7</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.tinkerpop.blueprints</groupId>
+			<artifactId>blueprints-sail-graph</artifactId>
+			<version>0.7</version>
+		</dependency>
+
 		<!-- Log4j -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -188,6 +194,12 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-vfs</groupId>
+			<artifactId>commons-vfs</artifactId>
+			<version>1.0</version>
 		</dependency>
 
 		<!-- Jersey -->
@@ -277,10 +289,17 @@
 		</extensions>  
 
 		<plugins>
-			<plugin>
+			<!--<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>wagon-maven-plugin</artifactId>
 				<version>1.0-beta-3</version>
+						<configuration>
+							<fromDir>src/main/resources/public</fromDir>
+							<include>*</include>
+							<url>scp://nadir.fe.up.pt</url>
+							<toDir>home/unite/public_html</toDir>
+							<serverId>nadir</serverId>
+						</configuration>
 				<executions>
 					<execution>
 						<id>upload-static</id>
@@ -312,7 +331,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
