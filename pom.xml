@@ -289,50 +289,6 @@
 		</extensions>  
 
 		<plugins>
-			<!--<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>wagon-maven-plugin</artifactId>
-				<version>1.0-beta-3</version>
-						<configuration>
-							<fromDir>src/main/resources/public</fromDir>
-							<include>*</include>
-							<url>scp://nadir.fe.up.pt</url>
-							<toDir>home/unite/public_html</toDir>
-							<serverId>nadir</serverId>
-						</configuration>
-				<executions>
-					<execution>
-						<id>upload-static</id>
-						<phase>install</phase>
-						<goals>
-							<goal>upload</goal>
-						</goals>
-						<configuration>
-							<fromDir>src/main/resources/public</fromDir>
-							<include>*</include>
-							<url>scp://nadir.fe.up.pt</url>
-							<toDir>home/unite/public_html</toDir>
-							<serverId>nadir</serverId>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>upload-javascript</id>
-						<phase>install</phase>
-						<goals>
-							<goal>upload</goal>
-						</goals>
-						<configuration>
-							<fromDir>src/main/javascript</fromDir>
-							<include>*</include>
-							<url>scp://nadir.fe.up.pt</url>
-							<toDir>home/unite/public_html/javascript</toDir>
-							<serverId>nadir</serverId>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>-->
-		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

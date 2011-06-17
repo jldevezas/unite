@@ -23,16 +23,19 @@ public class RDFBatchLoader
 	private Logger log;
 	private FileObject[] files;
 	private String graphDbPath;
+	private String baseURI;
 
-	public RDFBatchLoader( String vfsPath, String graphDbPath )
+	public RDFBatchLoader( String vfsPath, String graphDbPath, String baseURI )
 	{
-		this( vfsPath, graphDbPath, ".*" );
+		this( vfsPath, graphDbPath, baseURI, ".*" );
 	}
 
-	public RDFBatchLoader( String vfsPath, String graphDbPath, final String fileFilter )
+	public RDFBatchLoader( String vfsPath, String graphDbPath,
+			String baseURI, final String fileFilter )
 	{
 		log = Logging.getLogger( this.getClass().getName() );
 		this.graphDbPath = graphDbPath;
+		this.baseURI = baseURI;
 
 		try
 		{
@@ -72,7 +75,7 @@ public class RDFBatchLoader
 			for ( int i = 0; i < files.length; i++ )
 			{
 				InputStream inputStream = files[ i ].getContent().getInputStream();
-				g.loadRDF( inputStream, null, "rdf-xml", null );
+				g.loadRDF( inputStream, baseURI, "rdf-xml", null );
 				inputStream.close();
 			}
 		}
